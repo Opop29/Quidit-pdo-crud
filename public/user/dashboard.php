@@ -23,6 +23,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   
 </head>
 <body>
+<nav>
+<div class="logo-container">
+    <img src="../../media/logoone.jpg" alt="Logo" style="max-width: 150px; margin-top: -10px;">
+</div>
+
+
+        <ul class="nav-links">
+            <li><a href="index.html">Product Inventory</a></li>
+            <li><a href="payment.html">Payment</a></li>
+            <li><a href="logistics.html">logistics</a></li>
+            <li><a href="Customer Service.html">Customer Service</a></li>
+            <li><a href="report.html">Report</a></li>
+        </ul>
+        <div class="cart">Add to Cart</div>
+    </nav>
+
+
     <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
     <p>
         <a href="./reset.php" class="btn btn-warning">Reset Your Password</a>
