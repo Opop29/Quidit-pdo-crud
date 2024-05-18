@@ -38,6 +38,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         </ul>
         <div class="cart">Add to Cart</div>
     </nav>
+    <hr>
+    <div class="slideshow-container">
+  <img class="slides fade" src="../../media/luffy-ace-sabo.webp" alt="Image 1">
+  <img class="slides fade" src="../../media/luffy.jpg" alt="Image 2">
+  <img class="slides fade" src="../../media/nami-roben.webp" alt="Image 3">
+  <img class="slides fade" src="../../media/pirate.jpg" alt="Image 4">
+  <img class="slides fade" src="../../media/roben.jpg" alt="Image 5">
+</div>
 
 
     <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
@@ -124,5 +132,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             </div>        
         </div>
     </div>
+    <script src="../../javascript/script.js"></script>
 </body>
 </html>
