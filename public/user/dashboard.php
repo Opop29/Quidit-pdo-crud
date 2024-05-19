@@ -20,7 +20,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../../css/dashboard.css">
-  
+    <link rel="stylesheet" href="../../css/products.css">
+    <link rel="stylesheet" href="../../css/model.css">
 </head>
 <body>
 <nav>
@@ -36,7 +37,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <li><a href="Customer Service.html">Customer Service</a></li>
             <li><a href="report.html">Report</a></li>
         </ul>
-        <div class="cart">Add to Cart</div>
+        <div style="text-align: center;">
+    <a href="./reset.php" class="btn btn-warning" style="border-color: black;">Reset Password</a>
+    <a href="./logout.php" class="btn btn-danger mr-3" style="border-color: black;">Log-out</a>
+</div>
+
     </nav>
     <hr>
     <div class="slideshow-container">
@@ -45,14 +50,212 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   <img class="slides fade" src="../../media/nami-roben.webp" alt="Image 3">
   <img class="slides fade" src="../../media/pirate.jpg" alt="Image 4">
   <img class="slides fade" src="../../media/roben.jpg" alt="Image 5">
+  <div class="navigation">
+    <button onclick="prevSlide()">Prev</button>
+    <button onclick="nextSlide()">Next</button>
+  </div>
+</div>
+ 
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="product-img" src="" alt="Product Image" id="modal-img">
+        <div class="product-info">
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+            <p id="modal-price"></p>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" value="1" min="1">
+            <p id="total-price">Total Amount: </p>
+            <button class="btn btn-buy" id="buyBtn" onclick="openPurchaseModal()">Buy</button>
+            <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
 </div>
 
 
-    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-    <p>
-        <a href="./reset.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="./logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-    </p>
+<div id="clarificationModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeClarificationModal()">&times;</span>
+        <div class="clarification-info">
+            <h2>Details</h2>
+            <p><strong>Product:</strong> <span id="clarification-title"></span></p>
+            <p><strong>Description:</strong> <span id="clarification-description"></span></p>
+            <p><strong>Price:</strong> <span id="clarification-price"></span></p>
+            <h2>Purchase Details</h2>
+            <p><strong>Name:</strong> <span id="clarification-name"></span></p>
+            <p><strong>Address:</strong> <span id="clarification-address"></span></p>
+            <p><strong>Contact Number:</strong> <span id="clarification-contact"></span></p>
+            <button class="btn btn-edit" onclick="editData()">Edit</button>
+
+            <button class="btn btn-confirm" onclick="confirmPurchaseData()">Confirm</button>
+
+            <button class="btn btn-cancel" onclick="closeClarificationModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="editModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <div class="edit-info">
+            <h2>Edit Details</h2>
+            <label for="edit-title">Product:</label>
+            <input type="text" id="edit-title">
+            <label for="edit-description">Description:</label>
+            <textarea id="edit-description"></textarea>
+            <label for="edit-price">Price:</label>
+            <input type="text" id="edit-price">
+            <label for="edit-name">Name:</label>
+            <input type="text" id="edit-name">
+            <label for="edit-address">Address:</label>
+            <input type="text" id="edit-address">
+            <label for="edit-contact">Contact Number:</label>
+            <input type="text" id="edit-contact">
+            <button class="btn btn-confirm" onclick="confirmEdit()">Confirm Edit</button>
+            <button class="btn btn-cancel" onclick="closeEditModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="purchaseModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closePurchaseModal()">&times;</span>
+        <div class="purchase-info">
+            <h2>Enter Your Details</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name">
+            <label for="address">Address:</label>
+            <input type="text" id="address">
+            <label for="contact">Contact Number:</label>
+            <input type="text" id="contact">
+            <button class="btn btn-confirm" onclick="openClarificationModal()">Confirm Purchase</button>
+            <button class="btn btn-cancel" onclick="closePurchaseModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+<div id="thankYouModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeThankYouModal()">&times;</span>
+        <div class="thank-you-info">
+            <h2>Thank You for Your Purchase!</h2>
+            <p>We are grateful that you have chosen to buy our product.</p>
+            <p>Your order will arrive within <span id="deliveryDays"></span> days.</p>
+            <button class="btn btn-ok" onclick="closeThankYouModal()">OK</button>
+        </div>
+    </div>
+</div>
+
+
+
+<h1 class="my-5" style="font-size: 30px;">Welcome!, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b> Discover quality products at great prices. Start shopping now!</h1>
+
+    <h1 class="text" style="color: orange; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 60px; text-align: center;">PRODUCTS</h1>
+    <hr>
+    <hr style="border-top: 3px solid orange;">
+<hr>
+ <div class="container-products">
+  <div class="product-box">
+  <img class="product-img" src="../../productsmedia/luffy.jpg" alt="Product Image" style="height: 220px;">
+    <div class="product-info">
+      <h2>Monkey D. Luffy</h2>
+      <p>Normal form Action figure</p>
+      <p>₱6,500.00</p>
+      <button class="btn btn-buy" onclick="openModal('Monkey D. Luffy', 'Normal form Action figure', '₱6,500.00', '../../productsmedia/luffy.jpg')">Buy</button>
+      <button class="btn btn-details">Details</button>
+    </div>
+  </div><div class="product-box">
+  <img class="product-img" src="../../productsmedia/sanji.jpg" alt="Product Image" style="height: 220px;">
+    <div class="product-info">
+      <h2>Vinsmoke Sanji</h2>
+      <p>flame cooker Action figure</p>
+      <p>₱7,800.57</p>
+      <button class="btn btn-buy" onclick="openModal('Vinsmoke Sanji', 'flame cooker Action figure', '₱7800.57', '../../productsmedia/sanji.jpg')">Buy</button>
+      <button class="btn btn-details">Details</button>
+    </div>
+  </div><div class="product-box">
+  <img class="product-img" src="../../productsmedia/shanks.webp" alt="Product Image" style="height: 220px;">
+    <div class="product-info">
+      <h2>Red Hair Shanks</h2>
+      <p>the captain of the Red Hair Pirates.</p>
+      <p>₱8,999.99</p>
+      <button class="btn btn-buy" onclick="openModal('Red Hair Shanks', 'the captain of the Red Hair Pirates.', '₱8999.99', '../../productsmedia/shanks.webp')">Buy</button>
+      <button class="btn btn-details">Details</button>
+    </div>
+  </div><div class="product-box">
+  <img class="product-img" src="../../productsmedia/zoro.webp" alt="Product Image" style="height: 220px;">
+    <div class="product-info">
+        
+      <h2>Roronoa Zoro </h2>
+      <p>"Pirate Hunter" Zoro swordsman
+      </p>
+      <p>₱7,989.99</p>
+      <button class="btn btn-buy">Buy</button>
+      <button class="btn btn-details">Details</button>
+    </div>
+  </div><div class="product-box">
+  <img class="product-img" src="../../productsmedia/chopper.jpg" alt="Product Image" style="height: 220px;">
+    <div class="product-info">
+      <h2>TonyX2 Chopper</h2>
+      <p>"Cotton Candy Lover" Chopper</p>
+      <p>₱6,899.99</p>
+      <button class="btn btn-buy">Buy</button>
+      <button class="btn btn-details">Details</button>
+    </div>
+  </div><div class="product-box">
+  <img class="product-img" src="../../productsmedia/usopp.webp" alt="Product Image" style="height: 220px;">
+    <div class="product-info">
+      <h2>Usopp</h2>
+      <p>Sogeking, the King of Snipers</p>
+      <p>₱5,678.00</p>
+      <button class="btn btn-buy">Buy</button>
+      <button class="btn btn-details">Details</button>
+    </div>
+  </div><div class="product-box">
+  <img class="product-img" src="../../productsmedia/nami.jpg" alt="Product Image" style="height: 220px;">
+    <div class="product-info">
+      <h2>Nami</h2>
+      <p> "Cat Burglar" Nami navigator</p>
+      <p>₱10,000.00</p>
+      <button class="btn btn-buy">Buy</button>
+      <button class="btn btn-details">Details</button>
+    </div>
+  </div><div class="product-box">
+  <img class="product-img" src="../../productsmedia/robin.webp" alt="Product Image" style="height: 220px;">
+    <div class="product-info">
+    <h2 style="font-size: 31px;">Nico Robin</h2>
+      <p>"Devil Child Light of the Revolution"</p>
+      <p>₱8,978.99</p>
+      <button class="btn btn-buy">Buy</button>
+      <button class="btn btn-details">Details</button>
+    </div>
+  </div><div class="product-box">
+  <img class="product-img" src="../../productsmedia/ace.webp" alt="Product Image" style="height: 220px;">
+    <div class="product-info">
+    <h2 style="font-size: 27px;">Portgas D. Ace</h2>
+      <p>"Fire Fist" Ace</p>
+      <p>₱10,099.99</p>
+      <button class="btn btn-buy">Buy</button>
+      <button class="btn btn-details">Details</button>
+    </div>
+  </div>
+ 
+ <div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="product-img" src="" alt="Product Image" id="modal-img">
+    <div class="product-info">
+      <h2 id="modal-title"></h2>
+      <p id="modal-description"></p>
+      <p id="modal-price"></p>
+      <button class="btn btn-buy">Buy</button>
+      <button class="btn btn-details">Details</button>
+    </div>
+  </div>
+</div>
+
+
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
@@ -133,5 +336,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         </div>
     </div>
     <script src="../../javascript/script.js"></script>
+
 </body>
 </html>
