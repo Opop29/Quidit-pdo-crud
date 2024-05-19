@@ -112,6 +112,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <input type="text" id="edit-address">
             <label for="edit-contact">Contact Number:</label>
             <input type="text" id="edit-contact">
+            <hr>
             <button class="btn btn-confirm" onclick="confirmEdit()">Confirm Edit</button>
             <button class="btn btn-cancel" onclick="closeEditModal()">Cancel</button>
         </div>
@@ -130,6 +131,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <input type="text" id="address">
             <label for="contact">Contact Number:</label>
             <input type="text" id="contact">
+            <hr>
             <button class="btn btn-confirm" onclick="openClarificationModal()">Confirm Purchase</button>
             <button class="btn btn-cancel" onclick="closePurchaseModal()">Cancel</button>
         </div>
@@ -188,10 +190,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <div class="product-info">
         
       <h2>Roronoa Zoro </h2>
-      <p>"Pirate Hunter" Zoro swordsman
-      </p>
-      <p>₱7,989.99</p>
-      <button class="btn btn-buy">Buy</button>
+      <p>Pirate Hunter" Zoro swordsman</p>
+      <p>₱97,989.9</p>
+      <button class="btn btn-buy" onclick="openModal('Roronoa Zoro', 'Pirate Hunter Zoro swordsman', '₱9989.9', '../../productsmedia/zoro.webp')">Buy</button>
       <button class="btn btn-details">Details</button>
     </div>
   </div><div class="product-box">
@@ -200,7 +201,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       <h2>TonyX2 Chopper</h2>
       <p>"Cotton Candy Lover" Chopper</p>
       <p>₱6,899.99</p>
-      <button class="btn btn-buy">Buy</button>
+      <button class="btn btn-buy" onclick="openModal('TonyX2 Chopper', 'Cotton Candy Lover Chopper', '₱6899.99', '../../productsmedia/chopper.jpg')">Buy</button>
       <button class="btn btn-details">Details</button>
     </div>
   </div><div class="product-box">
@@ -209,7 +210,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       <h2>Usopp</h2>
       <p>Sogeking, the King of Snipers</p>
       <p>₱5,678.00</p>
-      <button class="btn btn-buy">Buy</button>
+      <button class="btn btn-buy" onclick="openModal('Usopp', 'Sogeking, the King of Snipers', '₱5678.00', '../../productsmedia/usopp.webp')">Buy</button>
       <button class="btn btn-details">Details</button>
     </div>
   </div><div class="product-box">
@@ -218,7 +219,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       <h2>Nami</h2>
       <p> "Cat Burglar" Nami navigator</p>
       <p>₱10,000.00</p>
-      <button class="btn btn-buy">Buy</button>
+      <button class="btn btn-buy" onclick="openModal('Nami', 'Cat Burglar Nami navigator', '₱10000.00', '../../productsmedia/nami.jpg')">Buy</button>
       <button class="btn btn-details">Details</button>
     </div>
   </div><div class="product-box">
@@ -227,7 +228,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <h2 style="font-size: 31px;">Nico Robin</h2>
       <p>"Devil Child Light of the Revolution"</p>
       <p>₱8,978.99</p>
-      <button class="btn btn-buy">Buy</button>
+      <button class="btn btn-buy" onclick="openModal('Nico Robin', 'Devil Child Light of the Revolution', '₱8978.99', '../../productsmedia/robin.webp')">Buy</button>
       <button class="btn btn-details">Details</button>
     </div>
   </div><div class="product-box">
@@ -236,7 +237,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <h2 style="font-size: 27px;">Portgas D. Ace</h2>
       <p>"Fire Fist" Ace</p>
       <p>₱10,099.99</p>
-      <button class="btn btn-buy">Buy</button>
+      <button class="btn btn-buy" onclick="openModal('Portgas D. Ace', 'Fire Fist Ace', '₱10099.99', '../../productsmedia/ace.webp')">Buy</button>
       <button class="btn btn-details">Details</button>
     </div>
   </div>
