@@ -302,6 +302,53 @@ function calculateTotalPrice() {
   let totalPrice = quantity * price;
   document.getElementById("total-price").textContent = "Total Amount: ₱" + totalPrice.toFixed(2); // Display total price
 }
+
+
+// script for payment
+function validateForm() {
+  var cardNumber = document.getElementById('card_number').value;
+  var expiryDate = document.getElementById('expiry_date').value;
+  var cvv = document.getElementById('cvv').value;
+  var amount = document.getElementById('amount').value;
+
+  var cardError = document.getElementById('card_error');
+  var expiryError = document.getElementById('expiry_error');
+  var cvvError = document.getElementById('cvv_error');
+  var amountError = document.getElementById('amount_error');
+
+  var isValid = true;
+
+  if (!cardNumber.match(/^\d{16}$/)) {
+      cardError.textContent = 'Invalid card number (must be 16 digits)';
+      isValid = false;
+  } else {
+      cardError.textContent = '';
+  }
+
+  if (!expiryDate.match(/(0[1-9]|1[0-2])\/\d{4}/)) {
+      expiryError.textContent = 'Invalid expiry date (format: MM/YYYY)';
+      isValid = false;
+  } else {
+      expiryError.textContent = '';
+  }
+
+  if (!cvv.match(/^\d{3}$/)) {
+      cvvError.textContent = 'Invalid CVV (must be 3 digits)';
+      isValid = false;
+  } else {
+      cvvError.textContent = '';
+  }
+
+  if (!amount.match(/^\d+(\.\d{2})?$/)) {
+      amountError.textContent = 'Invalid amount';
+      isValid = false;
+  } else {
+      amountError.textContent = '';
+  }
+
+  return isValid;
+}
+
    
 
 
