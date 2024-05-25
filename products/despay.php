@@ -85,8 +85,8 @@
 /* Products Display Styles */
 #productsDisplay {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 188px;
     padding: 20px;
 }
 
@@ -94,15 +94,22 @@
     border: 7px solid orange;
     border-radius: 5px;
     padding: 5px;
-    margin: 10px;
-    width: 300px;
+    width: calc(100% - 5px); /* Adjusted width to fit two cards per row */
     background-color: black;
     box-shadow: 0 0 20px orange;
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 0px; /* Added margin-bottom to create space between rows */
 }
+
+@media screen and (max-width: 600px) {
+    .card {
+        width: calc(100% - 20px); /* On smaller screens, make each card occupy full width */
+    }
+}
+
 
 .card:hover {
     transform: scale(1.1); 
@@ -110,10 +117,12 @@
 }
 
 .card-img-top {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    height: 200px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 50px;
+    height: 250px;
     object-fit: cover;
+    border: 7px solid orange;
+    text-align: center;
 }
 
 .card-body {
@@ -121,12 +130,13 @@
 }
 
 .card-title {
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
     color: orange;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 40px;
-    text-align: center;
+    font-size: 30px;
+   
+    width: 100%; /* Adjust the width as needed */
 }
 
 .card-img {
@@ -159,7 +169,7 @@
 #cartContainer {
     position: fixed;
     top: 4em;
-    right: 20px;
+    right: 80px;
     background-color: #fff;
     border: 1px solid #ddd;
     padding: 10px;
@@ -254,7 +264,7 @@ nav {
 h1 {
     color: orange;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 60px;
+    font-size: 30px;
     text-align: center; /* Center-align the text */
 }
 .slideshow-container {
