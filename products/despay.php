@@ -36,6 +36,7 @@
     letter-spacing: 1px;
 }
 
+
 .container {
     margin-top: 20px; /* Adjust the margin as needed */
 }
@@ -92,9 +93,9 @@
 .card {
     border: 7px solid orange;
     border-radius: 5px;
-    padding: 20px;
+    padding: 5px;
     margin: 10px;
-    width: 285px;
+    width: 300px;
     background-color: black;
     box-shadow: 0 0 20px orange;
     display: flex;
@@ -116,7 +117,7 @@
 }
 
 .card-body {
-    padding: 20px;
+    padding: 100px;
 }
 
 .card-title {
@@ -130,7 +131,7 @@
 
 .card-img {
     width: 100%;
-    max-width: 150px; /* Set maximum width for the image */
+    max-width: 300px; /* Set maximum width for the image */
     height: auto;
     border-radius: 5px;
   }
