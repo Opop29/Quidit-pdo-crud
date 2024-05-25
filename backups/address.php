@@ -8,142 +8,82 @@
     
 </head>
 <style>
-  
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Ubuntu', sans-serif;
-}
+        body {
+            background-color: black; /* Updated background color to black */
+            color: orange; /* Set text color to orange */
+        }
 
-body{
-  background: #131313;
-  margin: 0 10px;
-}
+        .container {
+            border: 2px solid #ffc107; /* Yellow border */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Light shadow */
+            padding: 40px;
+            margin-top: 50px; /* Add some space from the top */
+        }
 
-.payment{
-  background: #f8f8f8;
-  max-width: 360px;
-  margin: 80px auto;
-  height: auto;
-  padding: 35px;
-  padding-top: 70px;
-  border-radius: 5px;
-  position: relative;
-}
+        .form-group {
+            margin-bottom: 20px; /* Add space between form elements */
+        }
 
-.payment h2{
-  text-align: center;
-  letter-spacing: 2px;
-  margin-bottom: 40px;
-  color: #0d3c61;
-}
+        label {
+            color: orange; /* Set label text color to orange */
+        }
 
-.form .label{
-  display: block;
-  color: #555555;
-  margin-bottom: 6px;
-}
+        .btn-primary, .btn-danger {
+            padding: 10px 20px; /* Padding for buttons */
+            font-size: 16px; /* Font size for buttons */
+            border-radius: 5px; /* Rounded corners for buttons */
+        }
 
-.input{
-  padding: 13px 0px 13px 25px;
-  width: 100%;
-  text-align: center;
-  border: 2px solid #dddddd;
-  border-radius: 5px;
-  letter-spacing: 1px;
-  word-spacing: 3px;
-  outline: none;
-  font-size: 16px;
-  color: #555555;
-}
+        .btn-primary {
+            background-color: #007bff; /* Blue button */
+            border-color: #007bff; /* Blue button border */
+        }
 
-.card-grp{
-  display: flex;
-  justify-content: space-between;
-}
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            border-color: #0056b3; /* Darker blue border on hover */
+        }
 
-.card-item{
-  width: 48%;
-}
+        .btn-danger {
+            background-color: #dc3545; /* Red button */
+            border-color: #dc3545; /* Red button border */
+        }
 
-.space{
-  margin-bottom: 20px;
-}
+        .btn-danger:hover {
+            background-color: #c82333; /* Darker red on hover */
+            border-color: #bd2130; /* Darker red border on hover */
+        }
+        .container {
+            border: 2px solid #ffc107; /* Yellow border */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Light shadow */
+            padding: 40px;
+            margin-top: 50px; /* Add some space from the top */
+        }
 
-.icon-relative{
-  position: relative;
-}
+        .form-group {
+            margin-bottom: 20px; /* Add space between form elements */
+        }
 
-.icon-relative .fas,
-.icon-relative .far{
-  position: absolute;
-  bottom: 12px;
-  left: 15px;
-  font-size: 20px;
-  color: #555555;
-}
+        label {
+            color: orange; /* Set label text color to orange */
+        }
 
-.btn{
-  margin-top: 40px;
-  background: #2196F3;
-  padding: 12px;
-  text-align: center;
-  color: #f8f8f8;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-}
+        .btn {
+            padding: 10px 20px; /* Padding for buttons */
+            font-size: 16px; /* Font size for buttons */
+            border-radius: 5px; /* Rounded corners for buttons */
+            color: orange; /* Set button text color to orange */
+            border: 2px solid orange; /* Set button border color to orange */
+            background-color: black; /* Set button background color to black */
+        }
 
-
-.payment-logo{
-  position: absolute;
-  top: -50px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 100px;
-  background: #f8f8f8;
-  border-radius: 50%;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
-  text-align: center;
-  line-height: 85px;
-}
-
-.payment-logo:before{
-  content: "";
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  width: 90px;
-  height: 90px;
-  background: #2196F3;
-  border-radius: 50%;
-}
-
-.payment-logo p{
-  position: relative;
-  color: #f8f8f8;
-  font-family: 'Baloo Bhaijaan', cursive;
-  font-size: 58px;
-}
-
-
-@media screen and (max-width: 420px){
-  .card-grp{
-    flex-direction: column;
-  }
-  .card-item{
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  .btn{
-    margin-top: 20px;
-  }
-}
-
-
-</style>
+        .btn:hover {
+            background-color: orange; /* Set button background color to orange on hover */
+            color: black; /* Set button text color to black on hover */
+        }
+    </style>
 <body>
 <div class="container">
     <h2 class="mt-5">Enter Your Address</h2>
