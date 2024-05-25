@@ -368,7 +368,7 @@ h1 {
             <img src="../media/logoone.jpg" alt="Logo" style="max-width: 150px; margin-top: -10px;">
         </div>
                 <ul class="nav-links">
-                    <li><a href="logistics.html">logistics</a></li>
+                    <li><a href="../backups/logistic.php">logistics</a></li>
                     <li><a href="report.html">Report</a></li>
                 </ul>
         <div style="text-align: center;">

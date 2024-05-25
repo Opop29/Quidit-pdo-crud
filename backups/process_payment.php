@@ -22,7 +22,9 @@ $sql = "INSERT INTO payments (card_number, expiry_date, cvv, amount)
         VALUES ('$card_number', '$expiry_date', '$cvv', '$amount')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Payment processed successfully!";
+    // Redirect to success.php
+    header("Location: logistic.php");
+    exit;
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }

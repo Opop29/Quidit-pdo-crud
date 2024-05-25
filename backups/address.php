@@ -89,6 +89,7 @@
     </style>
 </head>
 <body>
+<body>
 <div class="container">
     <h2 class="mt-5">Enter Your Address</h2>
     <form action="process_address.php" method="POST" onsubmit="return validateForm()">
@@ -115,7 +116,13 @@
         </div>
         <div class="form-group">
             <label for="country">Country</label>
-            <input type="text" class="form-control" id="country" name="country" required>
+            <select class="form-control" id="country" name="country" required>
+                <option value="">Select your country</option>
+                <option value="USA">United States</option>
+                <option value="UK">United Kingdom</option>
+                <option value="CA">Canada</option>
+                <option value="PHI">Philipppines</option>
+            </select>
             <span class="error" id="country_error"></span> <!-- Error message for country -->
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -163,7 +170,7 @@
 
         // Validation for Country
         if (country.trim() === '') {
-            countryError.textContent = 'Please enter your country';
+            countryError.textContent = 'Please select your country';
             isValid = false;
         } else {
             countryError.textContent = '';
