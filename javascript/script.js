@@ -272,3 +272,37 @@ function openClarificationModalWithData() {
     document.getElementById("clarification-contact").innerText = document.getElementById("contact").value;
 }
 
+function openModal(title, description, price, imgUrl) {
+  // Update modal content with product details
+  document.getElementById("modal-title").textContent = title;
+  document.getElementById("modal-description").textContent = description;
+  document.getElementById("modal-price").textContent = price;
+  document.getElementById("modal-img").src = imgUrl;
+
+  // Set hidden input values for purchase form
+  document.getElementById("productName").value = title;
+  document.getElementById("description").value = description;
+  document.getElementById("price").value = price;
+  
+  // Show the modal
+  document.getElementById("myModal").style.display = "block";
+
+  // Calculate and display total price
+  calculateTotalPrice();
+}
+
+function closeModal() {
+  // Close the modal
+  document.getElementById("myModal").style.display = "none";
+}
+
+function calculateTotalPrice() {
+  let quantity = parseInt(document.getElementById("quantity").value);
+  let price = parseFloat(document.getElementById("modal-price").textContent.replace(/[^\d.]/g, '')); // Remove non-numeric characters
+  let totalPrice = quantity * price;
+  document.getElementById("total-price").textContent = "Total Amount: ₱" + totalPrice.toFixed(2); // Display total price
+}
+   
+
+
+

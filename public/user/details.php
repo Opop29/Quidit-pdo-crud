@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "cruddb"; // Your database name
+$database = "x"; // Your database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);

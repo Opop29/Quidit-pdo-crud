@@ -39,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($product_name_err) && empty($product_details_err) && empty($product_retail_price_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO products (product_name, product_details, product_retail_price) VALUES (:product_name, :product_details, :product_retail_price)";
+        $sql = "INSERT INTO product (product_name, product_details, product_retail_price) VALUES (:product_name, :product_details, :product_retail_price)";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters

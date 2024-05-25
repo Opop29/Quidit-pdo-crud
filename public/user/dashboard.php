@@ -19,9 +19,9 @@
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-            <link rel="stylesheet" href="../../css/dashboard.css">
-            <link rel="stylesheet" href="../../css/products.css">
-            <link rel="stylesheet" href="../../css/model.css">
+            <link rel="stylesheet" href="../../supports/css/dashboard.css">
+            <link rel="stylesheet" href="../../supports/css/products.css">
+            <link rel="stylesheet" href="../../supports/css/model.css">
         </head>
         <body>
         <nav>
