@@ -67,6 +67,42 @@
         label {
             color: orange; /* Set label text color to orange */
         }
+        .nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 20px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px; /* Increased font size */
+    transition: color 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+    box-shadow: 20px 10px 30px rgba(255, 165, 0, 0); /* Initial box-shadow */
+    border-radius: 15px;
+}
+
+.nav-links li a:hover {
+    color: #ffcc00;
+    box-shadow: 0px 0px 40px rgba(255, 204, 0, 0.5); /* Box-shadow on hover */
+}
+nav {
+    flex: 6;
+    background-color: black;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 5px orange(0, 0, 0, 0.1);
+     border: 6px solid orange; 
+    border-radius: 10px;
+}
 
         .btn {
             padding: 10px 20px; /* Padding for buttons */
@@ -84,13 +120,28 @@
             color: red; /* Error message color */
             font-size: 14px; /* Error message font size */
         }
+        
     </style>
 </head>
 <body>
+<nav>
+        <div class="logo-container">
+            <img src="../media/logoone.jpg" alt="Logo" style="max-width: 150px; margin-top: -10px;">
+        </div>
+                <ul class="nav-links">
+                    <li><a href="../backups/logistic.php">logistics</a></li>
+                    <li><a href="report.html">Report</a></li>
+                </ul>
+        <div style="text-align: center;">
+            <a href="../public/user/reset.php" class="btn btn-warning" style="border-color: black;">Reset Password</a>
+            <a href="../public/user/logout.php" class="btn btn-danger mr-3" style="border-color: black;">Log-out</a>
+            <a href="../products/despay.php" class="btn btn-primary">Back to Products</a>
+        </div>
+</nav>
 <div class="container mt-5">
     <h2>Thank You!</h2>
     <p>Your purchase was successful, and your address has been recorded.</p>
-    <a href="../products/despay.php" class="btn btn-primary">Back to Products</a>
+    
 </div>
 <div class="container">
     <div class="cool-background">

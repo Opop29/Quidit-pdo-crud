@@ -369,7 +369,7 @@ h1 {
         </div>
                 <ul class="nav-links">
                     <li><a href="../backups/logistic.php">logistics</a></li>
-                    <li><a href="report.html">Report</a></li>
+                    <li><a href="../public/user/sale.php">Sale</a></li>
                 </ul>
         <div style="text-align: center;">
             <a href="../public/user/reset.php" class="btn btn-warning" style="border-color: black;">Reset Password</a>
@@ -456,6 +456,10 @@ h1 {
         </div>
     </div>
 
+
+
+
+    
 
     <script>
         fetch('products-api.php')
@@ -623,6 +627,18 @@ h1 {
         document.getElementById('buyButton').addEventListener('click', () => {
             window.location.href = '../backups/user.php';
         });
+        function addToCart(productId, productName, productPrice) {
+    if (cart[productId]) {
+        cart[productId].quantity++;
+    } else {
+        cart[productId] = { name: productName, quantity: 1, price: productPrice };
+    }
+    displayCart();
+
+    // Show information about the added product
+    const addedProductInfo = `Added to cart: ${productName}, Price: ₱${productPrice}`;
+    alert(addedProductInfo);
+}
 
 
      
