@@ -6,9 +6,9 @@ $username = 'root';
 $password = '';
 /*
 $host = 'localhost';
-$dbname = 'u593341949_db_serenio';
-$username = 'u593341949_dev_serenio';
-$password = '20212014Serenio';
+$dbname = 'u593341949_db_quidit';
+$username = 'u593341949_dev_quidit';
+$password = '20212014Quidit';
 */
 try {   
  $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
