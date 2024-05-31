@@ -2,10 +2,9 @@
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 define('DB_SERVER', 'localhost');
-define('DB_NAME', 'cruddb');
+define('DB_NAME', 'x');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-
 
 try{
     $pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
