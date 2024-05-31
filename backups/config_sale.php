@@ -12,30 +12,32 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Get POST data
-    $user_id = 1; // Assuming you have the user ID from session or other method
-    $firt_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-    $phone_number = $_POST['phone_number'];
-    $age = $_POST['age'];
+    $title = $_POST['title']; // Assuming you have the user ID from session or other method
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+    $quantity = $_POST['quantity'];
+    $img = $_POST['img'];
+
+
    
     
 
     // Prepare SQL statement to insert into database
-    $sql = "INSERT INTO user_info (user_id, first_name, last_name, phone_number, age) VALUES (:user_id, :first_name, :last_name, :phone_number, :age)";
+    $sql = "INSERT INTO products (title, description, price, quantity, img) VALUES (:title, :description, :price, :quantity, :img)";
     $stmt = $conn->prepare($sql);
 
     // Bind parameters
-    $stmt->bindParam(':user_id', $user_id);
-    $stmt->bindParam(':first_name', $firt_name);
-    $stmt->bindParam(':last_name', $last_name);
-    $stmt->bindParam(':phone_number', $phone_number);
-    $stmt->bindParam(':age', $age);
+    $stmt->bindParam(':title', $title);
+    $stmt->bindParam(':description', $description);
+    $stmt->bindParam(':price', $price);
+    $stmt->bindParam(':quantity', $quantity);
+    $stmt->bindParam(':img', $img);
 
     // Execute the statement
     $stmt->execute();
 
     // Redirect to a confirmation page or back to the product list
-    header("Location: address.php");
+    header("Location: ../products/despay.php");
     exit(); // Terminate script execution after redirection
 } catch(PDOException $e) {
     // Display error message

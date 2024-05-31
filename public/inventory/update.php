@@ -42,7 +42,7 @@ if(isset($_POST["sale_id"]) && !empty($_POST["sale_id"])){
     // Check input errors before inserting in database
     if(empty($sale_name_err) && empty($sale_details_err) && empty($sale_retail_price_err)){
         // Prepare an update statement
-        $sql = "UPDATE sales SET sale_name=:sale_name, sale_details=:sale_details, sale_retail_price=:sale_retail_price WHERE sale_id=:sale_id";
+        $sql = "UPDATE sale SET sale_name=:sale_name, sale_details=:sale_details, sale_retail_price=:sale_retail_price WHERE sale_id=:sale_id";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -80,7 +80,7 @@ if(isset($_POST["sale_id"]) && !empty($_POST["sale_id"])){
         $product_id =  trim($_GET["sale_id"]);
         
         // Prepare a select statement
-        $sql = "SELECT * FROM sales WHERE sale_id = :sale_id";
+        $sql = "SELECT * FROM sale WHERE sale_id = :sale_id";
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(":sale_id", $param_sale_id);

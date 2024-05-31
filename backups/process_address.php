@@ -1,10 +1,14 @@
 <?php
 // Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "x";
-
+$host = 'localhost';
+$dbname = 'x';
+$username = 'root';
+$password = '';
+/*$host = 'localhost';
+$dbname = 'u593341949_db_quidit';
+$username = 'u593341949_dev_quidit';
+$password = '20221240Quidit';
+*/
 try {
     // Create a PDO connection
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

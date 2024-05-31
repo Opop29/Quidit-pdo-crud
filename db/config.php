@@ -6,7 +6,6 @@ define('DB_NAME', 'x');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 
-
 try{
     $pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
     // Set the PDO error mode to exception

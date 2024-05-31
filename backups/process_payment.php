@@ -1,10 +1,9 @@
 <?php
 // Establish database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "x";
-
+$host = 'localhost';
+$dbname = 'x';
+$username = 'root';
+$password = '';
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {

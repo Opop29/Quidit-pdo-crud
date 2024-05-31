@@ -380,7 +380,7 @@ h1 {
         </div>
                 <ul class="nav-links">
                     <li><a href="../backups/logistic.php">logistics</a></li>
-                    <li><a href="../public/user/sale.php">Sale</a></li>
+                    <li><a href="../backups/sale.php">Sale</a></li>
                 </ul>
         <div style="text-align: center;">
             <a href="../public/user/reset.php" class="btn btn-warning" style="border-color: black;">Reset Password</a>
@@ -484,12 +484,12 @@ h1 {
                     <div class="card-body">
                         <h5 class="card-title">${product.title}</h5>
                         <p class="card-text">${product.description}</p>
-                        <p class="card-text">Price: ₱${product.rrp}</p>
+                        <p class="card-text">Price: ₱${product.price}</p>
                         <p class="card-text">Quantity: ${product.quantity}</p>
-                        <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#cartModal"onclick="buyProduct(${product.id}, '${product.title}', ${product.rrp})">
+                        <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#cartModal"onclick="buyProduct(${product.id}, '${product.title}', ${product.price})">
                                     <i class="fas fa-shopping-cart"></i> Buy
                                 </button>
-                        <button class="btn btn-add-to-cart" onclick="addToCart(${product.id}, '${product.title}', ${product.rrp})">
+                        <button class="btn btn-add-to-cart" onclick="addToCart(${product.id}, '${product.title}', ${product.price})">
                             <i class="fas fa-cart-plus"></i> Add to Cart
                         </button>
                           
