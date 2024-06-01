@@ -4,28 +4,40 @@ $host = 'localhost';
 $dbname = 'x';
 $username = 'root';
 $password = '';
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Retrieve form data
-$card_number = $_POST['card_number'];
-$expiry_date = $_POST['expiry_date'];
-$cvv = $_POST['cvv'];
-$amount = $_POST['amount'];
+// Start session
+session_start();
 
-// Insert payment details into database
-$sql = "INSERT INTO payments (card_number, expiry_date, cvv, amount)
-        VALUES ('$card_number', '$expiry_date', '$cvv', '$amount')";
+// Check if user is logged in
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    // Retrieve user ID from session
+    $user_id = $_SESSION["id"];
 
-if ($conn->query($sql) === TRUE) {
-    // Redirect to success.php
-    header("Location: logistic.php");
-    exit;
+    // Retrieve form data
+    $card_number = $_POST['card_number'];
+    $expiry_date = $_POST['expiry_date'];
+    $cvv = $_POST['cvv'];
+    $amount = $_POST['amount'];
+
+    // Insert payment details into database
+    $sql = "INSERT INTO payments (user_id, card_number, expiry_date, cvv, amount)
+            VALUES ('$user_id', '$card_number', '$expiry_date', '$cvv', '$amount')";
+
+    if ($conn->query($sql) === TRUE) {
+        // Redirect to success.php
+        header("Location: logistic.php");
+        exit;
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    // If user is not logged in, handle accordingly
+    echo "User is not logged in.";
 }
 
 $conn->close();

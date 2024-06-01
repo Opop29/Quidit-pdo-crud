@@ -188,6 +188,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             echo '<div class="alert alert-danger">' . $login_err . '</div>';
         }        
         ?>
+        <?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true): ?>
+            <p>User ID: <?php echo $_SESSION["id"]; ?></p>
+        <?php endif; ?>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">

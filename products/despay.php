@@ -381,6 +381,7 @@ h1 {
                 <ul class="nav-links">
                     <li><a href="../backups/logistic.php">logistics</a></li>
                     <li><a href="../backups/sale.php">Sale</a></li>
+                    <li><a href="../backups/profile.php">Profile</a></li>
                 </ul>
         <div style="text-align: center;">
             <a href="../public/user/reset.php" class="btn btn-warning" style="border-color: black;">Reset Password</a>
@@ -473,27 +474,29 @@ h1 {
     
 
     <script>
-        fetch('products-api.php')
+       fetch('products-api.php')
     .then(response => response.json())
     .then(data => {
         const productsContainer = document.getElementById('productsDisplay');
+        if (data.length === 0) {
+            productsContainer.innerHTML = '<p>No products available.</p>';
+            return;
+        }
         data.forEach(product => {
             const cardHTML = `
                 <div class="card">
-                    <img class="card-img-top" src="${product.img}" alt="${product.title}">
+                    <img class="card-img-top" src="${product.img}" alt="${product.product}">
                     <div class="card-body">
-                        <h5 class="card-title">${product.title}</h5>
+                        <h5 class="card-title">${product.product}</h5>
                         <p class="card-text">${product.description}</p>
                         <p class="card-text">Price: ₱${product.price}</p>
                         <p class="card-text">Quantity: ${product.quantity}</p>
-                        <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#cartModal"onclick="buyProduct(${product.id}, '${product.title}', ${product.price})">
-                                    <i class="fas fa-shopping-cart"></i> Buy
-                                </button>
-                        <button class="btn btn-add-to-cart" onclick="addToCart(${product.id}, '${product.title}', ${product.price})">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cartModal" onclick="buyProduct(${product.id}, '${product.product}', ${product.price})">
+                            <i class="fas fa-shopping-cart"></i> Buy
+                        </button>
+                        <button class="btn btn-add-to-cart" onclick="addToCart(${product.id}, '${product.product}', ${product.price})">
                             <i class="fas fa-cart-plus"></i> Add to Cart
                         </button>
-                          
-                                
                     </div>
                 </div>
             `;
@@ -501,144 +504,47 @@ h1 {
         });
     })
     .catch(error => console.error('Error:', error));
- 
-    function buyProduct(productId, productName, productPrice) {
-            // Here you can add logic to handle the purchase of the product
-            console.log(`Buying product: ${product.title} - ₱${productPrice}`);
-            alert('Buying product!');
-        }
 
+function buyProduct(productId, productName, productPrice) {
+    if (cart[productId]) {
+        cart[productId].quantity++;
+    } else {
+        cart[productId] = { name: productName, quantity: 1, price: productPrice };
+    }
+    displayCart();
+}
 
+function showProductDetails(productId, productName, productDescription, productPrice, productImg) {
+    const productModalBody = document.getElementById('productModalBody');
+    const modalContent = `
+        <div class="row">
+            <div class="col-md-6">
+                <img src="${productImg}" class="img-fluid" alt="${productName}">
+            </div>
+            <div class="col-md-6">
+                <h2>${productName}</h2>
+                <p>${productDescription}</p>
+                <p>Price: ₱${productPrice}</p>
+            </div>
+        </div>
+    `;
+    productModalBody.innerHTML = modalContent;
+    $('#productModal').modal('show'); // Show the modal
+}
 
-        function showProductDetails(productId, productName, productDescription, productPrice, productImg) {
-            const productModalBody = document.getElementById('productModalBody');
-            const modalContent = `
-                <div class="row">
-                    <div class="col-md-6">
-                        <img src="${productImg}" class="img-fluid" alt="${productName}">
-                    </div>
-                    <div class="col-md-6">
-                        <h2>${productName}</h2>
-                        <p>${productDescription}</p>
-                        <p>Price: ₱${productPrice}</p>
-                    </div>
-                </div>
-            `;
-            productModalBody.innerHTML = modalContent;
-            $('#productModal').modal('show'); // Show the modal
-        }
+// Function to handle the "Proceed to Buy" button click
+document.getElementById('proceedBuyButton').addEventListener('click', () => {
+    if (Object.keys(cart).length === 0) {
+        alert('No products to purchase.');
+    } else {
+        alert('Proceeding with the purchase...');
+        // Redirect to the checkout page or perform other actions
+    }
+});
 
-        // Function to handle the "Proceed to Buy" button click
-        document.getElementById('proceedBuyButton').addEventListener('click', () => {
-            // Add logic here to proceed with the purchase
-            alert('Proceeding with the purchase...');
-            // Redirect to the checkout page or perform other actions
-        });
+let cart = {};
 
-
-        let cart = {};
-
-        function buyProduct(productId, productName, productPrice) {
-            if (cart[productId]) {
-                cart[productId].quantity++;
-            } else {
-                cart[productId] = { name: productName, quantity: 1, price: productPrice };
-            }
-            displayCart();
-        }
-
-        function removeFromCart(productId) {
-            if (cart[productId]) {
-                cart[productId].quantity--;
-                if (cart[productId].quantity <= 0) {
-                    delete cart[productId];
-                }
-            }
-            displayCart();
-        }
-
-        function deleteFromCart(productId) {
-            delete cart[productId];
-            displayCart();
-        }
-
-        function displayCart() {
-            const cartModalBody = document.getElementById('cartModalBody');
-            const totalPriceElement = document.getElementById('totalPrice');
-            let cartHTML = '';
-            let totalPrice = 0;
-
-            for (const [productId, product] of Object.entries(cart)) {
-                const productTotal = product.quantity * product.price;
-                totalPrice += productTotal;
-                cartHTML += `
-                    <div>
-                    
-                        <p>Product Name: ${product.name}, Quantity: ${product.quantity}, Total: ₱${productTotal}</p>
-                        <button class="btn btn-danger btn-sm" onclick="removeFromCart(${productId})">-</button>
-                        <button class="btn btn-secondary btn-sm" onclick="deleteFromCart(${productId})">Remove</button>
-                    </div>
-                `;
-            }
-
-            cartModalBody.innerHTML = cartHTML;
-            totalPriceElement.innerHTML = `Total Price: ₱${totalPrice}`;
-        }
-
-        document.getElementById('buyButton').addEventListener('click', () => {
-            window.location.href = '../backups/user.php';
-        });
-
-        function addToCart(productId, productName, productPrice) {
-            if (cart[productId]) {
-                cart[productId].quantity++;
-            } else {
-                cart[productId] = { name: productName, quantity: 1, price: productPrice };
-            }
-            displayCart();
-        }
-
-        function removeFromCart(productId) {
-            if (cart[productId]) {
-                cart[productId].quantity--;
-                if (cart[productId].quantity <= 0) {
-                    delete cart[productId];
-                }
-            }
-            displayCart();
-        }
-
-        function deleteFromCart(productId) {
-            delete cart[productId];
-            displayCart();
-        }
-
-        function displayCart() {
-            const cartModalBody = document.getElementById('cartModalBody');
-            const totalPriceElement = document.getElementById('totalPrice');
-            let cartHTML = '';
-            let totalPrice = 0;
-
-            for (const [productId, product] of Object.entries(cart)) {
-                const productTotal = product.quantity * product.price;
-                totalPrice += productTotal;
-                cartHTML += `
-                    <div>
-                        <p>Product Name: ${product.name}, Quantity: ${product.quantity}, Total: ₱${productTotal}</p>
-                        <button class="btn btn-danger btn-sm" onclick="removeFromCart(${productId})">-</button>
-                        <button class="btn btn-secondary btn-sm" onclick="deleteFromCart(${productId})">Remove</button>
-                    </div>
-                `;
-            }
-
-            cartModalBody.innerHTML = cartHTML;
-            totalPriceElement.innerHTML = `Total Price: ₱${totalPrice}`;
-        }
-
-        document.getElementById('buyButton').addEventListener('click', () => {
-            window.location.href = '../backups/user.php';
-        });
-        function addToCart(productId, productName, productPrice) {
+function addToCart(productId, productName, productPrice) {
     if (cart[productId]) {
         cart[productId].quantity++;
     } else {
@@ -651,10 +557,54 @@ h1 {
     alert(addedProductInfo);
 }
 
+function removeFromCart(productId) {
+    if (cart[productId]) {
+        cart[productId].quantity--;
+        if (cart[productId].quantity <= 0) {
+            delete cart[productId];
+        }
+    }
+    displayCart();
+}
 
-     
+function deleteFromCart(productId) {
+    delete cart[productId];
+    displayCart();
+}
 
-     
+function displayCart() {
+    const cartModalBody = document.getElementById('cartModalBody');
+    const totalPriceElement = document.getElementById('totalPrice');
+    let cartHTML = '';
+    let totalPrice = 0;
+
+    if (Object.keys(cart).length === 0) {
+        cartHTML = '<p>No products in the cart.</p>';
+    } else {
+        for (const [productId, product] of Object.entries(cart)) {
+            const productTotal = product.quantity * product.price;
+            totalPrice += productTotal;
+            cartHTML += `
+                <div>
+                    <p>Product Name: ${product.name}, Quantity: ${product.quantity}, Total: ₱${productTotal}</p>
+                    <button class="btn btn-danger btn-sm" onclick="removeFromCart(${productId})">-</button>
+                    <button class="btn btn-secondary btn-sm" onclick="deleteFromCart(${productId})">Remove</button>
+                </div>
+            `;
+        }
+    }
+
+    cartModalBody.innerHTML = cartHTML;
+    totalPriceElement.innerHTML = `Total Price: ₱${totalPrice}`;
+}
+
+document.getElementById('buyButton').addEventListener('click', () => {
+    if (Object.keys(cart).length === 0) {
+        alert('No products to purchase.');
+    } else {
+        window.location.href = '../backups/user.php';
+    }
+});
 
 
     </script>

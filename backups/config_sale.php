@@ -12,7 +12,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Get POST data
-    $title = $_POST['title']; // Assuming you have the user ID from session or other method
+    $product = $_POST['product']; // Assuming you have the user ID from session or other method
     $description = $_POST['description'];
     $price = $_POST['price'];
     $quantity = $_POST['quantity'];
@@ -23,11 +23,11 @@ try {
     
 
     // Prepare SQL statement to insert into database
-    $sql = "INSERT INTO products (title, description, price, quantity, img) VALUES (:title, :description, :price, :quantity, :img)";
+    $sql = "INSERT INTO products (product, description, price, quantity, img) VALUES (:product, :description, :price, :quantity, :img)";
     $stmt = $conn->prepare($sql);
 
     // Bind parameters
-    $stmt->bindParam(':title', $title);
+    $stmt->bindParam(':product', $product);
     $stmt->bindParam(':description', $description);
     $stmt->bindParam(':price', $price);
     $stmt->bindParam(':quantity', $quantity);
