@@ -506,36 +506,7 @@ h1 {
     })
     .catch(error => console.error('Error:', error));
 
-    function buyProduct(id, productName, price) {
-    // Send a POST request to a PHP script to save the purchase
-    fetch('purchase.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            product_id: id,
-            productName: productName,
-            price: price,
-        }),
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to save purchase');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Purchase saved:', data);
-        // Optionally, you can redirect the user or show a success message
-        // Proceed to the payment page
-        window.location.href = '../backups/payment_form.php';
-    })
-    .catch(error => {
-        console.error('Error saving purchase:', error.message);
-        // Handle the error, maybe show an error message to the user
-    });
-}
+   
 
 // Event listener for the "Buy" button
 document.getElementById('buyButton').addEventListener('click', () => {
@@ -655,30 +626,7 @@ function displayCart() {
     totalPriceElement.innerHTML = `Total Price: ₱${totalPrice}`;
 }
 
-document.getElementById('buyButton').addEventListener('click', () => {
-    // Check if the cart is empty
-    if (Object.keys(cart).length === 0) {
-        alert('No products in the cart. Please add products before proceeding to payment.');
-        return; // Exit the function if the cart is empty
-    }
-    
-    // Check if the user has provided their information
-    fetch('../backups/check_user_info.php')
-        .then(response => response.json())
-        .then(data => {
-            if (data.hasInformation) {
-                // Proceed to the payment page
-                window.location.href = '../backups/payment_form.php';
-            } else {
-                // Redirect the user to update their information
-                window.location.href = '../backups/user.php';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Handle error scenario
-        });
-});
+
 function buyProduct(id, productName, price) {
     // Send a POST request to a PHP script to save the purchase
     fetch('purchase.php', {
@@ -699,16 +647,21 @@ function buyProduct(id, productName, price) {
         return response.json();
     })
     .then(data => {
-        console.log('Purchase saved:', data);
-        // Optionally, you can redirect the user or show a success message
-        // Proceed to the payment page
-        window.location.href = '../backups/payment_form.php';
+        if (data.error && data.error === 'missing_profile') {
+            alert('Please complete your profile before making a purchase.');
+            window.location.href = '../backups/user.php';
+        } else {
+            console.log('Purchase saved:', data);
+            // Proceed to the payment page
+            window.location.href = '../backups/payment_form.php';
+        }
     })
     .catch(error => {
         console.error('Error saving purchase:', error.message);
         // Handle the error, maybe show an error message to the user
     });
 }
+
 
 // Event listener for the "Buy" button
 document.getElementById('buyButton').addEventListener('click', () => {

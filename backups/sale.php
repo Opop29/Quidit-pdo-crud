@@ -89,8 +89,8 @@
         <form action="config_sale.php" method="POST" onsubmit="return validateForm()">
            
             <div class="form-group">
-                <input type="text" class="form-control" id="title" name="title" placeholder="title " required>
-                <span class="error" id="title_error"></span> <!-- Error message for first name -->
+                <input type="text" class="form-control" id="product" name="product" placeholder="product " required>
+                <span class="error" id="product_error"></span> <!-- Error message for first name -->
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" id="description" name="description" placeholder="description of the product" required>

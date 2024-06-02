@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, username, password FROM users WHERE username = :username";
+        $sql = "SELECT id, username, password, first_login FROM users WHERE username = :username";
         
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -52,6 +52,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         $id = $row["id"];
                         $username = $row["username"];
                         $hashed_password = $row["password"];
+                        $first_login = $row["first_login"];
+                        
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
                             session_start();
@@ -61,9 +63,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;                            
                             
-                            // Redirect user to welcome page
-                           // header("location: ./products/board.php");
-                           header("location: ./products/despay.php");
+                            // Redirect based on first login status
+                            if($first_login == 1){
+                                // Update first_login flag
+                                $update_sql = "UPDATE users SET first_login = 1 WHERE id = :id";
+                                if($update_stmt = $pdo->prepare($update_sql)){
+                                    $update_stmt->bindParam(":id", $param_id, PDO::PARAM_INT);
+                                    $param_id = $id;
+                                    $update_stmt->execute();
+                                    unset($update_stmt);
+                                }
+                                // Redirect to user.php for new user
+                                header("location: ./backups/user.php");
+                            } else {
+                                // Redirect to despay.php for returning user
+                                header("location: ./products/despay.php");
+                            }
                         } else{
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
@@ -86,6 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     unset($pdo);
 }
 ?>
+
  
 <!DOCTYPE html>
 <html lang="en">

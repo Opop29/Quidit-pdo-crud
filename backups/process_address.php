@@ -43,7 +43,7 @@ try {
         $stmt->execute();
 
         // Redirect to a confirmation page or back to the product list
-        header("Location: payment_form.php");
+        header("Location: ../products/despay.php");
         exit(); // Terminate script execution after redirection
     } else {
         // If user is not logged in, handle accordingly
