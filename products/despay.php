@@ -27,7 +27,7 @@
     padding: 0;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: linear-gradient(to bottom, #1a0900 590px, #000000 50px);
+    background-image: linear-gradient(to bottom, #0f0f0f 590px, #000000 50px);
     color: #000000;
     padding: 20px;
 }
@@ -50,7 +50,7 @@
     background-color: #e6b800;
 }
 .cart {
-    background-color: #1a0900;
+    background-color: #ffcc00;
     color: #333;
     padding: 10px 20px;
     border-radius: 5px;
@@ -96,7 +96,7 @@
     border-radius: 5px;
     padding: 5px;
     width: calc(100% - 5px); /* Adjusted width to fit two cards per row */
-    background-color: #1a0900;
+    background-color: black;
     box-shadow: 0 0 20px orange;
     display: flex;
     flex-direction: column;
@@ -528,6 +528,8 @@ h1 {
     .then(data => {
         console.log('Purchase saved:', data);
         // Optionally, you can redirect the user or show a success message
+        // Proceed to the payment page
+        window.location.href = '../backups/payment_form.php';
     })
     .catch(error => {
         console.error('Error saving purchase:', error.message);
@@ -535,6 +537,22 @@ h1 {
     });
 }
 
+// Event listener for the "Buy" button
+document.getElementById('buyButton').addEventListener('click', () => {
+    // Check if the cart is empty
+    if (Object.keys(cart).length === 0) {
+        alert('No products in the cart. Please add products before proceeding to payment.');
+        return; // Exit the function if the cart is empty
+    }
+    
+    // Call the buyProduct function for each product in the cart
+    for (const productId in cart) {
+        if (cart.hasOwnProperty(productId)) {
+            const product = cart[productId];
+            buyProduct(productId, product.name, product.price);
+        }
+    }
+});
 
 
 
@@ -636,6 +654,31 @@ function displayCart() {
     cartModalBody.innerHTML = cartHTML;
     totalPriceElement.innerHTML = `Total Price: ₱${totalPrice}`;
 }
+
+document.getElementById('buyButton').addEventListener('click', () => {
+    // Check if the cart is empty
+    if (Object.keys(cart).length === 0) {
+        alert('No products in the cart. Please add products before proceeding to payment.');
+        return; // Exit the function if the cart is empty
+    }
+    
+    // Check if the user has provided their information
+    fetch('../backups/check_user_info.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.hasInformation) {
+                // Proceed to the payment page
+                window.location.href = '../backups/payment_form.php';
+            } else {
+                // Redirect the user to update their information
+                window.location.href = '../backups/user.php';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle error scenario
+        });
+});
 function buyProduct(id, productName, price) {
     // Send a POST request to a PHP script to save the purchase
     fetch('purchase.php', {
@@ -683,7 +726,6 @@ document.getElementById('buyButton').addEventListener('click', () => {
         }
     }
 });
-
 
 
 

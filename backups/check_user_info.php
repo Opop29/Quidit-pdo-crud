@@ -9,9 +9,9 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 
     // Database connection details
     $host = 'localhost';
-$dbname = 'u593341949_db_quidit';
-$username = 'u593341949_dev_quidit';
-$password = '20212014Quidit';
+    $dbname = 'x';
+    $username = 'root';
+    $password = '';
 
     try {
         // Create a PDO connection

@@ -1,9 +1,10 @@
 <?php
 
 $host = 'localhost';
-$dbname = 'u593341949_db_quidit';
-$username = 'u593341949_dev_quidit';
-$password = '20221240Quidit';
+    $dbname = 'x';
+    $username = 'root';
+    $password = '';
+
 /*
 $host = 'localhost';
 $dbname = 'u593341949_db_quidit';

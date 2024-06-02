@@ -1,4 +1,5 @@
 <?php
+
 // 1. Receive Data
 $data = json_decode(file_get_contents('php://input'), true);
 
@@ -7,10 +8,11 @@ $product_id = isset($data['product_id']) ? $data['product_id'] : null;
 $productName = isset($data['productName']) ? $data['productName'] : null;
 $price = isset($data['price']) ? $data['price'] : null;
 
-$host = 'localhost';
-$dbname = 'u593341949_db_quidit';
-$username = 'u593341949_dev_quidit';
-$password = '20221240Quidit';
+// 3. Connect to Database
+$servername = "localhost";
+$username = "root"; // Your MySQL username
+$password = ""; // Your MySQL password
+$database = "x"; // Your MySQL database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
