@@ -1,9 +1,9 @@
 <?php
 // Database connection
 $host = 'localhost';
-$dbname = 'x';
-$username = 'root';
-$password = '';
+$dbname = 'u593341949_db_quidit';
+$username = 'u593341949_dev_quidit';
+$password = '20221240Quidit';
 
 try {
     // Create a PDO connection

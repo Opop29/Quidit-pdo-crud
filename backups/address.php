@@ -9,7 +9,7 @@
 </head>
 <style>
         body {
-            background-color: black; /* Updated background color to black */
+            background-color: #1a0900; /* Updated background color to black */
             color: orange; /* Set text color to orange */
         }
 

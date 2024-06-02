@@ -7,6 +7,7 @@
             header("location: ../index.php");
             exit;
         }
+        
         ?>
         
 <!DOCTYPE html>
@@ -26,7 +27,7 @@
     padding: 0;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: linear-gradient(to bottom, #0f0f0f 590px, #000000 50px);
+    background-image: linear-gradient(to bottom, #1a0900 590px, #000000 50px);
     color: #000000;
     padding: 20px;
 }
@@ -49,7 +50,7 @@
     background-color: #e6b800;
 }
 .cart {
-    background-color: #ffcc00;
+    background-color: #1a0900;
     color: #333;
     padding: 10px 20px;
     border-radius: 5px;
@@ -95,7 +96,7 @@
     border-radius: 5px;
     padding: 5px;
     width: calc(100% - 5px); /* Adjusted width to fit two cards per row */
-    background-color: black;
+    background-color: #1a0900;
     box-shadow: 0 0 20px orange;
     display: flex;
     flex-direction: column;
@@ -505,6 +506,38 @@ h1 {
     })
     .catch(error => console.error('Error:', error));
 
+    function buyProduct(id, productName, price) {
+    // Send a POST request to a PHP script to save the purchase
+    fetch('purchase.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            product_id: id,
+            productName: productName,
+            price: price,
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to save purchase');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Purchase saved:', data);
+        // Optionally, you can redirect the user or show a success message
+    })
+    .catch(error => {
+        console.error('Error saving purchase:', error.message);
+        // Handle the error, maybe show an error message to the user
+    });
+}
+
+
+
+
 function buyProduct(productId, productName, productPrice) {
     if (cart[productId]) {
         cart[productId].quantity++;
@@ -575,12 +608,17 @@ function deleteFromCart(productId) {
 function displayCart() {
     const cartModalBody = document.getElementById('cartModalBody');
     const totalPriceElement = document.getElementById('totalPrice');
+    const buyButton = document.getElementById('buyButton'); // Get the Buy button element
     let cartHTML = '';
     let totalPrice = 0;
 
     if (Object.keys(cart).length === 0) {
         cartHTML = '<p>No products in the cart.</p>';
+        // Disable the Buy button if the cart is empty
+        buyButton.disabled = true;
     } else {
+        // Enable the Buy button if the cart is not empty
+        buyButton.disabled = false;
         for (const [productId, product] of Object.entries(cart)) {
             const productTotal = product.quantity * product.price;
             totalPrice += productTotal;
@@ -591,20 +629,62 @@ function displayCart() {
                     <button class="btn btn-secondary btn-sm" onclick="deleteFromCart(${productId})">Remove</button>
                 </div>
             `;
+           
         }
     }
 
     cartModalBody.innerHTML = cartHTML;
     totalPriceElement.innerHTML = `Total Price: ₱${totalPrice}`;
 }
+function buyProduct(id, productName, price) {
+    // Send a POST request to a PHP script to save the purchase
+    fetch('purchase.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            product_id: id,
+            productName: productName,
+            price: price,
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to save purchase');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Purchase saved:', data);
+        // Optionally, you can redirect the user or show a success message
+        // Proceed to the payment page
+        window.location.href = '../backups/payment_form.php';
+    })
+    .catch(error => {
+        console.error('Error saving purchase:', error.message);
+        // Handle the error, maybe show an error message to the user
+    });
+}
 
+// Event listener for the "Buy" button
 document.getElementById('buyButton').addEventListener('click', () => {
+    // Check if the cart is empty
     if (Object.keys(cart).length === 0) {
-        alert('No products to purchase.');
-    } else {
-        window.location.href = '../backups/user.php';
+        alert('No products in the cart. Please add products before proceeding to payment.');
+        return; // Exit the function if the cart is empty
+    }
+    
+    // Call the buyProduct function for each product in the cart
+    for (const productId in cart) {
+        if (cart.hasOwnProperty(productId)) {
+            const product = cart[productId];
+            buyProduct(productId, product.name, product.price);
+        }
     }
 });
+
+
 
 
     </script>

@@ -1,9 +1,9 @@
 <?php
 // Database connection
 $host = 'localhost';
-$dbname = 'x';
-$username = 'root';
-$password = '';
+$dbname = 'u593341949_db_quidit';
+$username = 'u593341949_dev_quidit';
+$password = '20221240Quidit';
 
 try {
     // Create a PDO connection
@@ -42,7 +42,7 @@ try {
         $stmt->execute();
 
         // Redirect to a confirmation page or back to the product list
-        header("Location: payment_form.html");
+        header("Location: payment_form.php");
         exit(); // Terminate script execution after redirection
     } else {
         // If user is not logged in, handle accordingly

@@ -1,9 +1,9 @@
 <?php
 // Establish database connection
 $host = 'localhost';
-$dbname = 'x';
-$username = 'root';
-$password = '';
+$dbname = 'u593341949_db_quidit';
+$username = 'u593341949_dev_quidit';
+$password = '20221240Quidit';
 $conn = new mysqli($host, $username, $password, $dbname);
 
 if ($conn->connect_error) {

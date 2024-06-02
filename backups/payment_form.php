@@ -6,7 +6,7 @@
     <title>Payment Form</title>
     <style>
         body {
-            background-color: #000000; /* Set background color */
+            background-color: #1a0900; /* Set background color */
             color: orange; /* Set text color */
             font-family: Arial, sans-serif; /* Set font family */
             display: flex;
@@ -35,7 +35,7 @@
             font-weight: bold; /* Make labels bold */
         }
 
-        input[type="text"] {
+        input[type="text"], input[type="date"] {
             width: 100%; /* Make input fields full width */
             padding: 10px; /* Add padding */
             margin-bottom: 20px; /* Add space below input fields */
@@ -55,41 +55,45 @@
         }
 
         input[type="submit"]:hover {
-    background-color: orange; /* Change background color on hover */
-    color: black; /* Change text color on hover */
-    font-weight: bold; /* Make text bold on hover */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
-    border: 2px solid black; /* Add black border on hover */
-}
+            background-color: orange; /* Change background color on hover */
+            color: black; /* Change text color on hover */
+            font-weight: bold; /* Make text bold on hover */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+            border: 2px solid black; /* Add black border on hover */
+        }
 
-.btn-primary, .btn-cancel {
-    padding: 10px 20px; /* Padding for buttons */
-    font-size: 16px; /* Font size for buttons */
-    border-radius: 5px; /* Rounded corners for buttons */
-    color: orange; /* Set button text color to orange */
-    border: 2px solid orange; /* Set button border color to orange */
-    background-color: transparent; /* Set button background color to transparent */
-    cursor: pointer; /* Add cursor pointer */
-}
+        .btn-primary, .btn-cancel {
+            padding: 10px 20px; /* Padding for buttons */
+            font-size: 16px; /* Font size for buttons */
+            border-radius: 5px; /* Rounded corners for buttons */
+            color: orange; /* Set button text color to orange */
+            border: 2px solid orange; /* Set button border color to orange */
+            background-color: transparent; /* Set button background color to transparent */
+            cursor: pointer; /* Add cursor pointer */
+        }
 
-.btn-primary:hover, .btn-cancel:hover {
-    background-color: orange; /* Set button background color to orange on hover */
-    color: black; /* Set button text color to black on hover */
-}
+        .btn-primary:hover, .btn-cancel:hover {
+            background-color: orange; /* Set button background color to orange on hover */
+            color: black; /* Set button text color to black on hover */
+        }
 
-.container {
-    text-align: center; /* Center-align container content */
-}
+        .container {
+            text-align: center; /* Center-align container content */
+        }
 
-.form-group {
-    margin-bottom: 20px; /* Add space between form elements */
-}
-
+        .form-group {
+            margin-bottom: 20px; /* Add space between form elements */
+        }
 
         .error {
             color: red; /* Error message color */
             font-size: 14px; /* Error message font size */
             margin-top: 5px; /* Add space above error message */
+        }
+
+        .total-payment {
+            font-size: 18px; /* Total payment text size */
+            margin-bottom: 20px; /* Add space below total payment text */
         }
     </style>
 </head>
@@ -122,58 +126,62 @@
             <button type="button" class="btn-cancel" onclick="cancelPayment()">Cancel</button>
         </form>
     </div>
-    
 
+    <script>
+        const totalPaymentAmount = 50.00; // Set the total payment amount here
 
-<script>
-    function cancelPayment() {
-    window.location.href = '../products/despay.php';
-}
+        function cancelPayment() {
+            window.location.href = '../products/despay.php';
+        }
 
-function validateForm() {
-    var cardNumber = document.getElementById('card_number').value;
-    var expiryDate = document.getElementById('expiry_date').value;
-    var cvv = document.getElementById('cvv').value;
-    var amount = document.getElementById('amount').value;
+        function validateForm() {
+            var cardNumber = document.getElementById('card_number').value;
+            var expiryDate = document.getElementById('expiry_date').value;
+            var cvv = document.getElementById('cvv').value;
+            var amount = document.getElementById('amount').value;
 
-    var cardError = document.getElementById('card_error');
-    var expiryError = document.getElementById('expiry_error');
-    var cvvError = document.getElementById('cvv_error');
-    var amountError = document.getElementById('amount_error');
+            var cardError = document.getElementById('card_error');
+            var expiryError = document.getElementById('expiry_error');
+            var cvvError = document.getElementById('cvv_error');
+            var amountError = document.getElementById('amount_error');
 
-    var isValid = true;
+            var isValid = true;
 
-    if (!cardNumber.match(/^\d{16}$/)) {
-        cardError.textContent = 'Invalid card number (must be 16 digits)';
-        isValid = false;
-    } else {
-        cardError.textContent = '';
-    }
+            if (!cardNumber.match(/^\d{16}$/)) {
+                cardError.textContent = 'Invalid card number (must be 16 digits)';
+                isValid = false;
+            } else {
+                cardError.textContent = '';
+            }
 
-    if (!expiryDate) {
-        expiryError.textContent = 'Please select expiry date';
-        isValid = false;
-    } else {
-        expiryError.textContent = '';
-    }
+            if (!expiryDate) {
+                expiryError.textContent = 'Please select expiry date';
+                isValid = false;
+            } else {
+                expiryError.textContent = '';
+            }
 
-    if (!cvv.match(/^\d{3}$/)) {
-        cvvError.textContent = 'Invalid CVV (must be 3 digits)';
-        isValid = false;
-    } else {
-        cvvError.textContent = '';
-    }
+            if (!cvv.match(/^\d{3}$/)) {
+                cvvError.textContent = 'Invalid CVV (must be 3 digits)';
+                isValid = false;
+            } else {
+                cvvError.textContent = '';
+            }
 
-    if (!amount.match(/^\d+(\.\d{2})?$/)) {
-        amountError.textContent = 'Invalid amount';
-        isValid = false;
-    } else {
-        amountError.textContent = '';
-    }
+            if (!amount.match(/^\d+(\.\d{2})?$/)) {
+                amountError.textContent = 'Invalid amount';
+                isValid = false;
+            } else {
+                amountError.textContent = '';
+            }
 
-    return isValid;
-}
+            if (parseFloat(amount) < totalPaymentAmount) {
+                amountError.textContent = 'Insufficient amount. The total payment is $' + totalPaymentAmount.toFixed(2);
+                isValid = false;
+            }
 
-</script>
+            return isValid;
+        }
+    </script>
 </body>
 </html>
